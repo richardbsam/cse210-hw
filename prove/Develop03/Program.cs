@@ -1,17 +1,62 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+
+
+// Exceed requirements.
+// The program now loads scriptures from a files named scriptures.txt
+
 
 class Program
 {
     static void Main(string[] args)
     {
-        // Create a sample scripture
-        var scripture = new Scripture("Doctrine and Covenants 88:118", "And as all have not faith, seek ye diligently and teach one another words of wisdom; yea, seek ye out of the best books words of wisdom; seek learning, even by study and also by faith.");
+        // Load scriptures from file
+        List<Scripture> scriptures = LoadScripturesFromFile("scriptures.txt");
 
-        // Run the scripture memorizer
-        Memorizer memorizer = new Memorizer(scripture);
-        memorizer.Run();
+        if (scriptures.Count == 0)
+        {
+            Console.WriteLine("No scriptures found in the file. Exiting program.");
+            return;
+        }
+
+        // Run the scripture memorizer for each scripture
+        foreach (var scripture in scriptures)
+        {
+            Memorizer memorizer = new Memorizer(scripture);
+            memorizer.Run();
+        }
+    }
+
+    static List<Scripture> LoadScripturesFromFile(string filePath)
+    {
+        List<Scripture> scriptures = new List<Scripture>();
+
+        try
+        {
+            // Read all lines from the file
+            string[] lines = File.ReadAllLines(filePath);
+
+            // Process each line as a scripture entry
+            foreach (string line in lines)
+            {
+                // Split the line into reference and text
+                string[] parts = line.Split(new[] { ':' }, 2);
+                if (parts.Length == 2)
+                {
+                    string reference = parts[0].Trim();
+                    string text = parts[1].Trim();
+                    scriptures.Add(new Scripture(reference, text));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading scriptures from file: {ex.Message}");
+        }
+
+        return scriptures;
     }
 }
 
@@ -85,3 +130,5 @@ class Memorizer
         while (!scripture.AllWordsHidden());
     }
 }
+
+

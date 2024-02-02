@@ -178,7 +178,7 @@ class ListingActivity : Activity
     }
 }
 
-// Exceeding Requirement by Adding another kind of activity
+// Exceeding Requirement by Adding another kind of activity.
 
 // Visualization Activity class
 class VisualizationActivity : Activity

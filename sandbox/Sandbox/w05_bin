@@ -110,7 +110,9 @@ class Program
             ProcessChoice(choice);
         } while (choice != 6);
 
-        SaveGoals();
+        Console.Write("Enter filename to save goals (or press Enter to use default 'goals.txt'): ");
+        string filename = Console.ReadLine();
+        SaveGoals(filename);
     }
 
     static void DisplayMenu()
@@ -238,9 +240,9 @@ class Program
         userPoints += goals[goalIndex - 1].Points;
     }
 
-    static void SaveGoals()
+    static void SaveGoals(string filename = "goals.txt")
     {
-        using (StreamWriter writer = new StreamWriter("goals.txt"))
+        using (StreamWriter writer = new StreamWriter(filename))
         {
             foreach (var goal in goals)
             {
@@ -248,7 +250,7 @@ class Program
             }
         }
 
-        Console.WriteLine("Goals saved successfully!");
+        Console.WriteLine($"Goals saved to '{filename}' successfully!");
     }
 
     static void LoadGoals()
@@ -256,9 +258,12 @@ class Program
         goals.Clear();
         userPoints = 0;
 
-        if (File.Exists("goals.txt"))
+        Console.Write("Enter filename to load goals (or press Enter to skip loading): ");
+        string filename = Console.ReadLine();
+
+        if (File.Exists(filename))
         {
-            using (StreamReader reader = new StreamReader("goals.txt"))
+            using (StreamReader reader = new StreamReader(filename))
             {
                 while (!reader.EndOfStream)
                 {
@@ -289,7 +294,7 @@ class Program
                 }
             }
 
-            Console.WriteLine("Goals loaded successfully!");
+            Console.WriteLine($"Goals loaded from '{filename}' successfully!");
         }
         else
         {

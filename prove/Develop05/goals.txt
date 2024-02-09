@@ -1,0 +1,3 @@
+SimpleGoal,Attend Temple,50
+SimpleGoal,Go shooping,20
+EternalGoal,Read Scriptures daily,30

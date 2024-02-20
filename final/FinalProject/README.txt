@@ -9,5 +9,5 @@ we will create a Task Management System in C# that utilizes the principles of Pr
 including abstraction, encapsulation, inheritance, and polymorphism.
 
 The Task Management System will allow users to create, assign, prioritize, and track tasks.
-Each task will have various properties such as title, description, assignee, due date, and priority. 
+Each task will have various properties such as title, description, duration, due date, and priority. 
 The system will support different types of tasks, such as regular tasks, urgent tasks, and recurring tasks.
